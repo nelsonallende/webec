@@ -2,7 +2,7 @@
 body {margin:0;
 }
 
-button.back{
+.buttonback{
 	width: 60px;
 	height: 50px;
 	position: relative;
@@ -15,19 +15,12 @@ button.back{
 	transition: 0.3s;
 	}
 
-
 .buttonmain{
-	display: inline-block;
-	cursor: pointer;
-	padding: 3px;
+	display:block;
+	margin:40px auto;
 	height: 200px;
 	width: 200px;
 }
-.label.selectedIMG	{
-    border: 4px solid lightblue;
-}
-​
-
 section{
 	position: absolute;
 	bottom: 14px;
