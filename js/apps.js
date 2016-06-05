@@ -4,6 +4,7 @@ var WHERE_SCREEN = '#where-screen';
 var RED = 'ff0000';
 var BLACK = '000000';
 var HOME_LABEL = 'L';
+var what;
 
 /**
  * Zeigt den Screen mit der entsprechenden ID und versteckt die anderen.
@@ -14,7 +15,6 @@ function show(screenID) {
     $('section').hide();
     $(screenID).show();
 }
-
 
 
 /**
@@ -38,20 +38,30 @@ function showPlaces(map, radius, what) {
 
     var places = new google.maps.places.PlacesService(map);
 
-    var options = { location: map.getCenter(), radius: radius, types : ['öffentliches wc'], keyword: $('.buttonmain').val()    };
+    var options = {
+        location: map.getCenter(),
+        radius: radius,
+        types: ['Suche'],
+        keyword: what
+    };
 
-    places.nearbySearch(options, function(results, status) {
+    places.nearbySearch(options, function (results, status) {
 
-        if(status === google.maps.places.PlacesServiceStatus.OK ) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
 
-            results.forEach(function(place, i) {
-
+            results.forEach(function (place, i) {
+                var sContent = place.name;
                 var index = i + 1;
-                new google.maps.Marker(getMarker(map, place.geometry.location, RED, index));
-                 });
+                var marker = new google.maps.Marker(getMarker(map, place.geometry.location, RED, index));
+                google.maps.event.addListener(marker, 'click', function () {
+                    infoWindow = new google.maps.InfoWindow({content: sContent});
+                    infoWindow.open(map, marker);
+
+                });
+            });
         }
         else {
-
+            show(NOFOUND_SCREEN);
             $(NOFOUND_SCREEN).append('<label>Keinen Treffer gefunden</label>');
             console.log('status: ', status);
         }
@@ -68,8 +78,8 @@ function showPlaces(map, radius, what) {
  */
 function getMap(position, zoom) {
 
-    var here = new google.maps.LatLng(position.coords.latitude,  position.coords.longitude);
-    var options = { center: here, zoom: zoom };
+    var here = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    var options = {center: here, zoom: zoom};
 
     return new google.maps.Map($(WHERE_SCREEN).get(0), options);  // Das ist hässlich, denn es gibt nur eine ID...
 }
@@ -86,7 +96,8 @@ function getMap(position, zoom) {
 function getMarker(map, location, bgcolor, label) {
 
     var url = ['http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=', label, '|', bgcolor, '|ffffff'].join('');
-    return { map: map, position: location, icon: url };
+    return {map: map, position: location, icon: url};
+
 }
 
 /**
@@ -96,47 +107,40 @@ function getMarker(map, location, bgcolor, label) {
  */
 function showMapAndPlaces(position) {
 
-    var map = getMap(position, 15);
-
+	var map = getMap(position, 15);
     new google.maps.Marker(getMarker(map, map.getCenter(), BLACK, HOME_LABEL));
-
-    var choice = $(WHAT_SCREEN).find('.buttonmain').val();
-    showPlaces(map, 300, choice);
+	var choice=what;
+    console.log(choice)
+	showPlaces(map, 300, choice);
 }
+
+function setId(_what) {
+	what=_what;
+ }
 
 /**
  * Die 'Main' Methode
  */
-$(document).ready(function() {
+$(document).ready(function () {
 
 
     // Default screen.
     show(WHAT_SCREEN);
 
-    $(".label").click(function(){
-        $(this).toggleClass('selectedIMG');
-    });
 
-    // Button Handlers.
-    $('#what-button').on('click', function() {
-        show(WHAT_SCREEN);
+    $(WHAT_SCREEN).find('#1').on('click', function () {
+		setId("Bank");
+		show(WHERE_SCREEN);		
+        navigator.geolocation.getCurrentPosition(showMapAndPlaces);
     });
-
-    $('#who-button').on('click', function() {
-        if(isLoaded(WHO_SCREEN)) {
-            show(WHO_SCREEN);
-        }
+	$(WHAT_SCREEN).find('#2').on('click', function () {
+		setId("Haltestelle");
+		show(WHERE_SCREEN);
+        navigator.geolocation.getCurrentPosition(showMapAndPlaces);
     });
-
-    $('#where-button').on('click', function() {
-        if(isLoaded(WHERE_SCREEN)) {
-            show(WHERE_SCREEN);
-        }
-    });
-
-    $(WHAT_SCREEN).find('.buttonmain').on('click', function() {
-        console.log('.buttonmain.id');
-        show(WHERE_SCREEN);
+	$(WHAT_SCREEN).find('#3').on('click', function () {
+		setId("Öffentliches WC");
+		show(WHERE_SCREEN);
         navigator.geolocation.getCurrentPosition(showMapAndPlaces);
     });
 });
