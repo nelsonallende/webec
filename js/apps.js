@@ -1,3 +1,4 @@
+var LOGIN_SCREEN = '#login-screen';
 var WHAT_SCREEN = '#what-screen';
 var NOFOUND_SCREEN = "#nofound-screen";
 var WHERE_SCREEN = '#where-screen';
@@ -5,6 +6,31 @@ var RED = 'ff0000';
 var BLACK = '000000';
 var HOME_LABEL = 'L';
 var what;
+var attempt = 3; // Variable to count number of attempts.
+
+
+
+// Below function Executes on click of login button.
+function validate() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    if (username == "Formget" && password == "formget#123") {
+        alert("Login successfully");
+        show(WHAT_SCREEN); // Redirecting to other page.
+        return false;
+    }
+    else {
+        attempt--;// Decrementing by one.
+        alert("You have left " + attempt + " attempt;");
+// Disabling fields after 3 attempts.
+        if (attempt == 0) {
+            document.getElementById("username").disabled = true;
+            document.getElementById("password").disabled = true;
+            document.getElementById("submit").disabled = true;
+            return false;
+        }
+    }
+}
 
 /**
  * Zeigt den Screen mit der entsprechenden ID und versteckt die anderen.
@@ -125,7 +151,7 @@ $(document).ready(function () {
 
 
     // Default screen.
-    show(WHAT_SCREEN);
+    show(LOGIN_SCREEN);
 
 
     $(WHAT_SCREEN).find('#1').on('click', function () {
