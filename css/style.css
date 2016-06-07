@@ -91,7 +91,11 @@ body {margin:0;
 	color:#f2f2f2;
 	transition: 0.3s;
 	}
-
+button{
+	background-color: white;
+	BorderBrush:transparent;
+	BorderThickness:0;
+}
 .buttonmain{
 	display:block;
 	margin:40px auto;
