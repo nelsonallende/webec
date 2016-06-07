@@ -2,13 +2,28 @@ var LOGIN_SCREEN = '#login-screen';
 var WHAT_SCREEN = '#what-screen';
 var NOFOUND_SCREEN = "#nofound-screen";
 var WHERE_SCREEN = '#where-screen';
+var REGISTER_SCREEN = '#register-screen';
 var RED = 'ff0000';
 var BLACK = '000000';
 var HOME_LABEL = 'L';
 var what;
 var attempt = 3; // Variable to count number of attempts.
 
-
+function register() {
+    show(REGISTER_SCREEN);
+}
+function registerValidate() {
+    var email = document.getElementById("emailaddress").value;
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    if (username !=="" || password !== "" || email!=="") {
+        alert("Registered successfully");
+        show(WHAT_SCREEN); // Redirecting to other page.
+        return false;
+    }else{
+        alert("No empty fields allowed")
+    }
+}
 
 // Below function Executes on click of login button.
 function validate() {
@@ -31,7 +46,9 @@ function validate() {
         }
     }
 }
-
+function showWhatScreen() {
+    show(WHAT_SCREEN);
+}
 /**
  * Zeigt den Screen mit der entsprechenden ID und versteckt die anderen.
  *

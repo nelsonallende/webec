@@ -30,8 +30,22 @@
                     <label>Password :</label>
                     <input type="password" name="password" id="password"/>
                     <input type="button" value="Login" id="submit" onclick="validate()"/>
+                    <input type="button" value="Register" id="submit2" onclick="register()"/>
+                    <input type="button" value="Without Login" id="submit3" onclick="showWhatScreen()"/>
                 </form>
                 <span><b class="note">Note : </b>For this demo use following username and password. <br/><b class="valid">User Name : Formget<br/>Password : formget#123</b></span>
+            </section>
+            <section id="register-screen">
+                <h2>Javascript Login Form Validation</h2>
+                <form id="_form_id" method="post" name="_myform">
+                    <label>Email Addresse :</label>
+                    <input type="text" name="emailaddress" id="emailaddress" />
+                    <label>User Name :</label>
+                    <input type="text" name="username" id="_username"/>
+                    <label>Password :</label>
+                    <input type="password" name="password" id="_password"/>
+                    <input type="button" value="Done" id="_submit1" onclick="registerValidate()"/>
+                </form>
             </section>
         </main>
     </body>
