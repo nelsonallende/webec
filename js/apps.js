@@ -3,7 +3,7 @@ var WHAT_SCREEN = '#what-screen';
 var NOFOUND_SCREEN = "#nofound-screen";
 var WHERE_SCREEN = '#where-screen';
 var REGISTER_SCREEN = '#register-screen';
-var COMMENT_FIELD = '#comment-field';
+var COMMENT_SCREEN = '#comment-screen';
 var RED = 'ff0000';
 var BLACK = '000000';
 var HOME_LABEL = 'L';
@@ -80,9 +80,13 @@ function showWhatScreen() {
  */
 
 function setComment(){
-    console.log("HELLO");
-    if (commentEnable===true)
-        show(COMMENT_FIELD);
+    if(commentEnable===true){
+        show(COMMENT_SCREEN)
+    }else{
+        alert('Please Login')
+        show(LOGIN_SCREEN)
+    }
+
 }
 function Allow()
 {
@@ -154,15 +158,12 @@ function showPlaces(map, radius, what) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
 
             results.forEach(function (place, i) {
-                var sContent = place.name;
+                var sContent = "<div>" + place.name + "<a onclick='setComment()'href=#>Comment me</a></div>";
                 var index = i + 1;
                 var marker = new google.maps.Marker(getMarker(map, place.geometry.location, RED, index));
                 var infoWindow = new google.maps.InfoWindow({content: sContent});
                 google.maps.event.addListener(marker, 'click', function () {
                     infoWindow.open(map, marker);
-                });
-                google.maps.event.addListener(infoWindow, 'click', function () {
-                    console.log("dd");
                 });
             });
         }

@@ -94,7 +94,9 @@ body {margin:0;
 button{
 	background-color: white;
 	BorderBrush:transparent;
-	BorderThickness:0;
+	text-shadow:none;
+	border:none;
+	box-shadow:none;
 }
 .buttonmain{
 	display:block;
