@@ -3,31 +3,19 @@ var WHAT_SCREEN = '#what-screen';
 var NOFOUND_SCREEN = "#nofound-screen";
 var WHERE_SCREEN = '#where-screen';
 var REGISTER_SCREEN = '#register-screen';
-var COMMENT_FIELD = '#comment-field';
 var RED = 'ff0000';
 var BLACK = '000000';
 var HOME_LABEL = 'L';
 var what;
-var attempt = 3; // Anzahl max. Versuche
-var titles = [];
-var titleInput = document.getElementById("title");
-var messageBox = document.getElementById("display");
-var commentEnable=false;
+var attempt = 3; // Variable to count number of attempts.
 
 function register() {
     show(REGISTER_SCREEN);
 }
-
-/**
- * Validiert die Registrieung des neuen Benutzers
- *
- *
- */
 function registerValidate() {
     var email = document.getElementById("emailaddress").value;
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
-    commentEnable=true;
     if (username !=="" || password !== "" || email!=="") {
         alert("Registered successfully");
         show(WHAT_SCREEN); // Redirecting to other page.
@@ -36,24 +24,20 @@ function registerValidate() {
         alert("No empty fields allowed")
     }
 }
-/**
- * Validiert das Passwort des Users
- *
- * @param attempt
- */
+
+// Below function Executes on click of login button.
 function validate() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
-    commentEnable=true;
     if (username == "Formget" && password == "formget#123") {
         alert("Login successfully");
         show(WHAT_SCREEN); // Redirecting to other page.
         return false;
     }
     else {
-        attempt--;
+        attempt--;// Decrementing by one.
         alert("You have left " + attempt + " attempt;");
-// Disabling fields nach 3 Fehlversuchen
+// Disabling fields after 3 attempts.
         if (attempt == 0) {
             document.getElementById("username").disabled = true;
             document.getElementById("password").disabled = true;
@@ -62,54 +46,9 @@ function validate() {
         }
     }
 }
-/**
- * Zeigt den Screen an mit der Auswahl an Suchmöglichkeiten
- *
- *
- */
-
 function showWhatScreen() {
     show(WHAT_SCREEN);
 }
-/**
- * Zeigt das Comment Fenster
- *
- * @param titles
- * @param titleInputs
- * @param messageBox
- */
-
-function setComment(){
-    console.log("HELLO");
-    if (commentEnable===true)
-        show(COMMENT_FIELD);
-}
-function Allow()
-{
-    if (!user.title.value.match(/[a-zA-Z]$/) && user.title.value !="")
-    {
-        user.title.value="";
-        alert("Please Enter only alphabets");
-    }
-    window.location.reload()
-}
-
-function insert () {
-    titles.push(titleInput.value);
-    clearAndShow();
-}
-function clearAndShow ()
-{
-    titleInput.value = "";
-    messageBox.innerHTML = "";
-    messageBox.innerHTML += " " + titles.join("<br/> ") + "<br/>";
-}
-function getwords() {
-    text = ('#words').value;
-    document.getElementById('para').innerHTML += '<p>'+text
-    document.getElementById('words').value = "enter"
-}
-
 /**
  * Zeigt den Screen mit der entsprechenden ID und versteckt die anderen.
  *
@@ -157,12 +96,10 @@ function showPlaces(map, radius, what) {
                 var sContent = place.name;
                 var index = i + 1;
                 var marker = new google.maps.Marker(getMarker(map, place.geometry.location, RED, index));
-                var infoWindow = new google.maps.InfoWindow({content: sContent});
                 google.maps.event.addListener(marker, 'click', function () {
+                    infoWindow = new google.maps.InfoWindow({content: sContent});
                     infoWindow.open(map, marker);
-                });
-                google.maps.event.addListener(infoWindow, 'click', function () {
-                    console.log("dd");
+
                 });
             });
         }

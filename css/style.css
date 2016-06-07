@@ -102,6 +102,14 @@ button{
 	height: 200px;
 	width: 200px;
 }
+
+.logoutbutton {
+	display: none;
+	margin: 40px auto;
+	height: 200px;
+	width: 200px;
+}
+
 section{
 	position: absolute;
 	bottom: 14px;
