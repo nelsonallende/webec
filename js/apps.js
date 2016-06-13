@@ -29,9 +29,28 @@ function registerValidate() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     commentEnable=true;
+    var formData = JSON.stringify({user: username, email: email, pass: password});
+
     if (username !=="" || password !== "" || email!=="") {
-        alert("Registered successfully");
-        showWhatScreen(); // Redirecting to other page.
+        $.ajax({
+            url:"http://localhost/xqapi/api/users/new",
+            type:'POST',
+            contentType: "application/json",
+            crossDomain: true,
+            dataType:'json',
+            data: formData,
+            async: false,
+            cache: false,
+            success:function(){
+                alert("Registered successfully");
+                showWhatScreen(); // Redirecting to other page.
+            },
+            error:function(jqXHR, testStatus, errorThrown){
+                console.log(errorThrown);
+            }
+
+        });
+
         return false;
     }else{
         alert("No empty fields allowed")
@@ -46,21 +65,44 @@ function validate() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     commentEnable=true;
-    if (username == "Formget" && password == "formget#123") {
-        showWhatScreen(); // Redirecting to other page.
-        return false;
-    }
-    else {
-        attempt--;
-        alert("You have left " + attempt + " attempt;");
-// Disabling fields nach 3 Fehlversuchen
-        if (attempt == 0) {
-            document.getElementById("username").disabled = true;
-            document.getElementById("password").disabled = true;
-            document.getElementById("submit").disabled = true;
-            return false;
+    
+    $.ajax({
+        url:"http://localhost/xqapi/api/users/user/"+username,
+        headers:{
+            'user': username,
+            'pass': password,
+            'Content-Type': 'application/json'
+        },
+        type:'GET',
+        crossDomain: true,
+        dataType:'json',
+        success:function(data){
+            console.log(data +" I did it");
+            for(var user in data){
+                console.log(user.name);
+            }
+            showWhatScreen();
+        },
+        error:function(jqXHR, testStatus, errorThrown){
+            console.log(errorThrown);
         }
-    }
+
+    });
+//     if (username == "Formget" && password == "formget#123") {
+//         showWhatScreen(); // Redirecting to other page.
+//         return false;
+//     }
+//     else {
+//         attempt--;
+//         alert("You have left " + attempt + " attempt;");
+// // Disabling fields nach 3 Fehlversuchen
+//         if (attempt == 0) {
+//             document.getElementById("username").disabled = true;
+//             document.getElementById("password").disabled = true;
+//             document.getElementById("submit").disabled = true;
+//             return false;
+//         }
+//     }
 }
 /**
  * Zeigt den Screen an mit der Auswahl an Suchmöglichkeiten
@@ -80,12 +122,33 @@ function showWhatScreen() {
  */
 
 function setComment(){
-    if(commentEnable===true){
-        show(COMMENT_SCREEN)
-    }else{
-        alert('Please Login')
-        show(LOGIN_SCREEN)
-    }
+    // var id_location = document.getElementById("id_location").value;
+    // var username = document.getElementById("username").value;
+    // var comment = document.getElementById("title").value;
+    var formData = JSON.stringify({id_location: "6", username: "bla", comment: "hello"});
+    //if(commentEnable===true){
+        show(COMMENT_SCREEN);
+        $.ajax({
+            url:"http://localhost/xqapi/api/users/id_comment/new",
+            type:'POST',
+            contentType: "application/json",
+            crossDomain: true,
+            dataType:'json',
+            data: formData,
+            async: false,
+            cache: false,
+            success:function(){
+                alert("Commented successfully");
+            },
+            error:function(jqXHR, testStatus, errorThrown){
+                console.log(errorThrown);
+            }
+
+        });
+    //}else{
+    //    alert('Please Login')
+    //    show(LOGIN_SCREEN)
+    //}
 
 }
 function Allow()
