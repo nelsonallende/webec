@@ -30,7 +30,7 @@ function registerValidate() {
     commentEnable=true;
     if (username !=="" || password !== "" || email!=="") {
         alert("Registered successfully");
-        show(WHAT_SCREEN); // Redirecting to other page.
+        showWhatScreenUser(); // Redirecting to other page.
         return false;
     }else{
         alert("No empty fields allowed")
@@ -46,8 +46,7 @@ function validate() {
     var password = document.getElementById("password").value;
     commentEnable=true;
     if (username == "Formget" && password == "formget#123") {
-        alert("Login successfully");
-        show(WHAT_SCREEN); // Redirecting to other page.
+        showWhatScreenUser(); // Redirecting to other page.
         return false;
     }
     else {
@@ -67,8 +66,11 @@ function validate() {
  *
  *
  */
-
 function showWhatScreen() {
+    show(WHAT_SCREEN);
+}
+
+function showWhatScreenUser() {
     show(WHAT_SCREEN);
 }
 /**
