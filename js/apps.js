@@ -273,6 +273,9 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * 3 Buttons die weiterführen zum "Where_Screen"
+     */
 
     $(WHAT_SCREEN).find('#1').on('click', function () {
 		setId("Bank");
