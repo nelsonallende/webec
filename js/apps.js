@@ -137,6 +137,12 @@ function isLoaded(screenID) {
     return $(screenID).children().length !== 0;
 }
 
+window.onbeforeunload = function() { showWhatScreen() };
+
+function goBack() {
+   show(WHAT_SCREEN);
+}
+
 /**
  * Zeigt die Treffer auf der Karte an.
  *
@@ -160,7 +166,7 @@ function showPlaces(map, radius, what) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
 
             results.forEach(function (place, i) {
-                var sContent = "<div>" + place.name + "<a onclick='setComment()'href=#>Comment me</a></div>";
+                var sContent = "<div>" + place.name + "<a onclick='setComment()'href=#> (Comment me)</a></div>";
                 var index = i + 1;
                 var marker = new google.maps.Marker(getMarker(map, place.geometry.location, RED, index));
                 var infoWindow = new google.maps.InfoWindow({content: sContent});
