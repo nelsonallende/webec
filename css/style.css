@@ -3,6 +3,7 @@
 @media screen and (orientation: landscape) {
 	.buttonmain {
 		float: left;
+		margin: 10px auto;
 	}
 
 }
