@@ -258,4 +258,9 @@ $(document).ready(function () {
 		show(WHERE_SCREEN);
         navigator.geolocation.getCurrentPosition(showMapAndPlaces);
     });
+
+    $(WHAT_SCREEN).find('#4').on('click', function () {
+        setId("Logout");
+        show(LOGIN_SCREEN);
+    });
 });
