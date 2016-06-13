@@ -5,7 +5,6 @@
 		float: left;
 		margin: 10px auto;
 	}
-
 }
 
 h2{
@@ -19,6 +18,16 @@ hr{
 	border: 0;
 	border-top: 1px solid #ccc;
 	margin-bottom: 40px;
+}
+#home-screen{
+	background-color: black;
+}
+
+#home{
+	display: block;
+	padding:100px 0px 100px 0px;
+	margin-left: auto;
+	margin-right: auto;
 }
 #login-screen{
 	position: absolute;
@@ -65,6 +74,7 @@ center{
 
 input[type=button]{
 	font-size: 16px;
+	border-radius: 10px;
 	background: white;
 	color: black;
 	font-weight: bold;
@@ -77,10 +87,7 @@ input[type=button]{
 	display: block;
 
 }
-/*input[type=button]:hover{
-	background: black;
-	color: white;
-}*/
+
 
 body {margin:0;
 }
@@ -101,7 +108,8 @@ body {margin:0;
 	outline:none;
 	margin: 10px auto;
 	display: block;
-	}
+	border-radius: 10px;
+}
 
 button{
 	background-color: white;
@@ -116,15 +124,6 @@ button{
 	height: 200px;
 	width: 200px;
 }
-
-.logoutbutton {
-	display: none;
-	margin: 40px auto;
-	height: 200px;
-	width: 200px;
-}
-
-
 
 section{
 	position: absolute;

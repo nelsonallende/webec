@@ -1,3 +1,4 @@
+var HOME_SCREEN = '#home-screen';
 var LOGIN_SCREEN = '#login-screen';
 var WHAT_SCREEN = '#what-screen';
 var NOFOUND_SCREEN = "#nofound-screen";
@@ -30,7 +31,7 @@ function registerValidate() {
     commentEnable=true;
     if (username !=="" || password !== "" || email!=="") {
         alert("Registered successfully");
-        showWhatScreenUser(); // Redirecting to other page.
+        showWhatScreen(); // Redirecting to other page.
         return false;
     }else{
         alert("No empty fields allowed")
@@ -46,7 +47,7 @@ function validate() {
     var password = document.getElementById("password").value;
     commentEnable=true;
     if (username == "Formget" && password == "formget#123") {
-        showWhatScreenUser(); // Redirecting to other page.
+        showWhatScreen(); // Redirecting to other page.
         return false;
     }
     else {
@@ -70,9 +71,6 @@ function showWhatScreen() {
     show(WHAT_SCREEN);
 }
 
-function showWhatScreenUser() {
-    show(WHAT_SCREEN);
-}
 /**
  * Zeigt das Comment Fenster
  *
@@ -166,6 +164,7 @@ function showPlaces(map, radius, what) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
 
             results.forEach(function (place, i) {
+                console.log(place);
                 var sContent = "<div>" + place.name + "<a onclick='setComment()'href=#> (Comment me)</a></div>";
                 var index = i + 1;
                 var marker = new google.maps.Marker(getMarker(map, place.geometry.location, RED, index));
@@ -238,6 +237,20 @@ function setId(_what) {
  */
 $(document).ready(function () {
 
+    /**
+     * Shows Home Screen just for 3 sec than switch to Login Screen
+     */
+
+    show(HOME_SCREEN);
+
+    window.setTimeout(function () {
+        show(LOGIN_SCREEN);
+    }, 3000)
+
+    /**
+     * Back Button Browser, back to What Screen
+     */
+
     window.onload = function () {
         if (typeof history.pushState === "function") {
             history.pushState("jibberish", null, null);
@@ -252,10 +265,6 @@ $(document).ready(function () {
                 if (!ignoreHashChange) {
                     ignoreHashChange = true;
                     window.location.hash = Math.random();
-                    // Detect and redirect change here
-                    // Works in older FF and IE9
-                    // * it does mess with your hash symbol (anchor?) pound sign
-                    // delimiter on the end of the URL
                 }
                 else {
                     ignoreHashChange = false;
@@ -263,10 +272,6 @@ $(document).ready(function () {
             };
         }
     }
-
-
-    // Default screen.
-    show(LOGIN_SCREEN);
 
 
     $(WHAT_SCREEN).find('#1').on('click', function () {
@@ -285,8 +290,4 @@ $(document).ready(function () {
         navigator.geolocation.getCurrentPosition(showMapAndPlaces);
     });
 
-    $(WHAT_SCREEN).find('#4').on('click', function () {
-        setId("Logout");
-        show(LOGIN_SCREEN);
-    });
 });
