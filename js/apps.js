@@ -25,9 +25,10 @@ function register() {
  *
  */
 function registerValidate() {
-    var email = document.getElementById("emailaddress").value;
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
+    var email = document.getElementById("emailaddressregister").value;
+    var username = document.getElementById("usernameregister").value;
+    var password = document.getElementById("passwordregister").value;
+    
     commentEnable=true;
     var formData = JSON.stringify({user: username, email: email, pass: password});
 
