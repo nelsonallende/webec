@@ -14,6 +14,7 @@ var titles = [];
 var titleInput = document.getElementById("title");
 var messageBox = document.getElementById("display");
 var commentEnable=false;
+var idPosition;
 
 function register() {
     show(REGISTER_SCREEN);
@@ -228,14 +229,18 @@ function showPlaces(map, radius, what) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
 
             results.forEach(function (place, i) {
-                console.log(place);
+
                 var sContent = "<div>" + place.name + "<a onclick='setComment()'href=#> (Comment me)</a></div>";
                 var index = i + 1;
+
                 var marker = new google.maps.Marker(getMarker(map, place.geometry.location, RED, index));
+                idPosition = results[index-1].place_id;
                 var infoWindow = new google.maps.InfoWindow({content: sContent});
                 google.maps.event.addListener(marker, 'click', function () {
                     infoWindow.open(map, marker);
+
                 });
+                console.log(idPosition);
             });
         }
         else {
